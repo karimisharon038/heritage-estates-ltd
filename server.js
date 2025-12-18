@@ -36,7 +36,6 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/clients', require('./routes/clients'));
 app.use('/api/experience', require('./routes/experience'));
 app.use('/api/chat', require('./routes/chat'));
-app.use('/api/dashboard', require('./routes/dashboard'));
 
 // Optional additional routes
 app.use('/api/assignments', require('./routes/assignments'));
@@ -70,4 +69,5 @@ if (process.env.NODE_ENV === "production") {
 // Start Server
 // --------------------
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => console.log(`🚀 Heritage Backend running on port ${PORT}`));
