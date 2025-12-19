@@ -29,11 +29,23 @@ router.get('/', async (req, res) => {
 router.post('/', parser.array('images', 10), async (req, res) => {
   try {
     const { title, content } = req.body;
-    const imageUrls = req.files.map(file => file.path);
-    const project = new Project({ title, content, imageUrls });
+
+    if (!title || !content) {
+      return res.status(400).json({ message: "Title and content required" });
+    }
+
+    const imageUrls = req.files ? req.files.map(file => file.path) : [];
+
+    const project = new Project({
+      title,
+      content,
+      imageUrls
+    });
+
     await project.save();
-    res.json(project);
+    res.status(201).json(project);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
